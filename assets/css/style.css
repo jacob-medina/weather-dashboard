@@ -1,0 +1,26 @@
+:root {
+    --text-color: #0a181a;
+    --primary-color: #79c4cd;
+    --secondary-color: #ffffff;
+    --accent-color: #78e4ed;
+    --background-color: #ecf7f8;
+}
+
+body {
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+button,
+input[type="submit"] {
+    background-color: var(--primary-color);
+    border: none;
+}
+
+#section-search-bar {
+    margin: auto auto;
+}
+
+footer {
+    margin-top: 90vh;
+}
