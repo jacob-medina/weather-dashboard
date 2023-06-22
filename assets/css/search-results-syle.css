@@ -1,0 +1,16 @@
+:root {
+    --text-color: #0a181a;
+    --primary-color: #79c4cd;
+    --secondary-color: #ffffff;
+    --accent-color: #78e4ed;
+    --background-color: #ecf7f8;
+}
+
+#search-history button {
+    background-color: var(--secondary-color);
+    margin: 10px;
+}
+
+#section-weather {
+    background-color: aquamarine;
+}
