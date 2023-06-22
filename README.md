@@ -1,1 +1,4 @@
-# Weather Dashboard
+# Weathi
+
+## Description
+A simple weather app.
