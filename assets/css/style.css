@@ -4,19 +4,92 @@
     --secondary-color: #ffffff;
     --accent-color: #78e4ed;
     --background-color: #ecf7f8;
+    --border-radius: 5px;
+}
+
+* {
+    font-family: 'Urbanist', sans-serif;
+    font-weight: 600;
 }
 
 body {
-    color: var(--text-color);
+    color: var(--secondary-color);
     background-color: var(--background-color);
+}
+
+main {
+    margin-top: calc(108px + 20px);
+}
+
+.hidden {
+    display: none !important;
 }
 
 button,
 input[type="submit"] {
-    background-color: var(--primary-color);
+    display: inline;
+    background-color: transparent;
     border: none;
+    border-radius: var(--border-radius);
+}
+
+#city {
+    width: min(250px, calc(100% - 3rem));
+    margin-right: 0.75rem;
+}
+
+input[type="submit"] {
+    background-image: url("../images/search-icon.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: 24px;
+}
+
+#section-search-bar .d-flex {
+    justify-content: center;
+}
+
+#section-search-bar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 100;
+    background-color: rgb(90, 90, 156);
+}
+
+#search-history {
+    /* height: 100px; */
+    overflow: auto;
+    white-space: nowrap;
+}
+
+#search-history button {
+    display: inline-block;
+}
+
+#section-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#section-loading p {
+    font-size: 200%;
+}
+
+#section-loading img {
+    height: 4rem;
 }
 
 footer {
     margin-top: 90vh;
+}
+
+@media screen and (min-width: 576px) {
+    #section-search-bar .d-flex {
+        display: block !important;
+        /* justify-content: start !important; */
+    }
 }

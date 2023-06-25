@@ -1,9 +1,14 @@
 :root {
     --text-color: #0a181a;
-    --primary-color: #79c4cd;
+    --primary-color: rgb(48, 111, 199);
     --secondary-color: #ffffff;
-    --accent-color: #78e4ed;
+    --accent-color: #1cc4d4;
     --background-color: #ecf7f8;
+    --border-radius: 5px;
+}
+
+body {
+    background: linear-gradient(var(--primary-color), rgb(145, 195, 255));
 }
 
 #search-history button {
@@ -11,6 +16,30 @@
     margin: 10px;
 }
 
-#section-weather {
-    background-color: aquamarine;
+main section {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#current-weather {
+    text-align: center;
+}
+
+#current-weather-icon {
+    width: 200px;
+    /* height: 100px; */
+}
+
+.weather-card {
+    /* background-color: #1cc4d4; */
+    backdrop-filter: hue-rotate(12deg);
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.36);
+}
+
+@media screen and (min-width: 992px) {
+    #section-weather {
+        width: 50%;
+    }
 }
