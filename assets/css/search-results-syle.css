@@ -9,6 +9,7 @@
 
 body {
     background: linear-gradient(var(--primary-color), rgb(145, 195, 255));
+    background-repeat: no-repeat;
 }
 
 #search-history button {
@@ -33,9 +34,23 @@ main section {
 
 .weather-card {
     /* background-color: #1cc4d4; */
-    backdrop-filter: hue-rotate(12deg);
+    backdrop-filter: saturate(200%) opacity(50%);
     border-radius: var(--border-radius);
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.36);
+}
+
+.forecast span {
+    display: inline-block;
+}
+
+.forecast-icon {
+    /* width: 50px; */
+    height: 40px;
+}
+
+.forecast-icon,
+.forecast .material-symbols-outlined {
+    margin-right: 5px;
 }
 
 @media screen and (min-width: 992px) {

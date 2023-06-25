@@ -247,6 +247,8 @@ const countries = [
 const searchHistoryMax = 8;  // max number of items that can be held in search history
 var weatherSection;
 var loadingSection;
+var errorSection;
+
 
 function hideElement(element) {
     element.addClass('hidden');
@@ -255,6 +257,7 @@ function hideElement(element) {
 function showElement(element) {
     element.removeClass('hidden');
 }
+
 
 // returns search history items in an array
 function getSearchHistory() {
@@ -319,21 +322,29 @@ function handleSearchFormSubmit(event) {
 }
 
 
+function setWeatherIcon(imageElement, weatherData) {
+    // make sure icon name ends in "d.png"
+    const iconName = weatherData.weather[0].icon.slice(0, -1) + "d.png";
+
+    imageElement.attr('src', `./assets/images/weather-icons/${iconName}`);
+    imageElement.attr('alt', weatherData.weather[0].description);
+}
+
+
 function displayWeatherCurrentData(city, country, weatherData) {
     console.log('------------ CURRENT WEATHER ------------');
     console.log(weatherData);
 
-    // display location data
+    // display date and location data
+    $('#current-date').text(dayjs().format('dddd, MMMM D'));
     $('#weather-city').text(city);
     $('#weather-country').text(country);
     
     // display weather icon
-    const iconName = weatherData.weather[0].icon.slice(0, -1) + "d.png";
-    $('#current-weather-icon').attr('src', `./assets/images/weather-icons/${iconName}`);
-    $('#current-weather-icon').attr('alt', weatherData.weather[0].description);
+    setWeatherIcon($('#current-weather-icon'), weatherData);
     
     // display weather stats
-    $('#current-temperature').text(Math.round(weatherData.main.temp) + "°");
+    $('#current-temperature').text(Math.round(weatherData.main.temp) + "°F");
     $('#current-weather-description').text(weatherData.weather[0].main);
     $('#current-humidity').text(Math.round(weatherData.main.humidity) + "%");
     $('#current-wind-speed').text(Math.round(weatherData.wind.speed) + " mph");
@@ -345,15 +356,55 @@ function displayWeatherCurrentData(city, country, weatherData) {
 
 
 function generateWeatherForecastCard(weatherData) {
-    
+    // create elements
+    const cardElement = $('<div class="forecast weather-card row align-items-center my-3 py-5 px-3">');
+    const dateElement = $('<span class="col-2 col-sm-3 col-md-4">');
+
+    const tempContainerElement = $('<div class="d-flex align-items-center col">');
+    const iconElement = $('<img class="forecast-icon">');
+    const tempElement = $('<span>');
+
+    const humidityContainerElement = $('<div class="d-flex align-items-center col">');
+    const humidityIconElement = $('<span class="material-symbols-outlined">humidity_percentage</span>');
+    const humidityElement = $('<span>');
+
+    const windSpeedContainerElement = $('<div class="d-flex align-items-center col">');
+    const windSpedIconElement = $('<span class="material-symbols-outlined">air</span>');
+    const windSpeedElement = $('<span>');
+
+    // get values from weather data
+    const dayOfWeek = dayjs(weatherData.dt_txt).format("ddd");
+    const temperature = Math.round(weatherData.main.temp);
+    const humidity = Math.round(weatherData.main.humidity);
+    const windSpeed = Math.round(weatherData.wind.speed);
+
+    // set values in elements
+    dateElement.text(dayOfWeek);
+    setWeatherIcon(iconElement, weatherData);
+    tempElement.text(temperature + "°");
+    humidityElement.text(humidity + "%");
+    windSpeedElement.text(windSpeed + " mph");
+
+    // append elements to document
+    tempContainerElement.append(iconElement, tempElement);
+    humidityContainerElement.append(humidityIconElement, humidityElement);
+    windSpeedContainerElement.append(windSpedIconElement, windSpeedElement);
+    cardElement.append(dateElement, tempContainerElement, humidityContainerElement, windSpeedContainerElement);
+    $('#forecast-weather').append(cardElement);
 }
 
 
-function displayWeatherForecastData(city, country, weatherData) {
+function displayWeatherForecastData(allWeatherData) {
     console.log('------------ FORECAST WEATHER ------------');
-    console.log(city);
-    console.log(country);
-    console.log(weatherData);
+    
+    // get weatherData for only 12 PM
+    for (weatherData of allWeatherData) {
+        const forecastTime = weatherData.dt_txt.slice(11);
+
+        if (forecastTime.includes("12:")) {
+            generateWeatherForecastCard(weatherData);
+        }
+    }
 }
 
 
@@ -361,7 +412,6 @@ function fetchWeatherData(lat, lon, city, country, apiKey) {
     // get current weather
     fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`)
         .then(function(response) {
-            
             return response.json();
         })
         .then(function(data) {
@@ -375,8 +425,17 @@ function fetchWeatherData(lat, lon, city, country, apiKey) {
         })
         .then(function(data) {
             // data gives 40 timestamps, 8 per day
-            displayWeatherForecastData(city, country, data.list);
+            console.log(data);
+            displayWeatherForecastData(data.list);
         });
+}
+
+
+function displayNoFindCity(city) {
+    $('#error-city-name').text(city);
+    hideElement(loadingSection);
+    hideElement(weatherSection);
+    showElement(errorSection);
 }
 
 
@@ -395,6 +454,7 @@ function generateWeatherInfo(apiKey) {
             // if no data was found
             if (data.length === 0) {
                 console.error('Could not find city:', city);
+                displayNoFindCity(city);
                 return;
             }
             console.log(data);
@@ -417,7 +477,10 @@ function handleSearchHistoryButtonClick(event) {
 function searchResultsInit() {
     weatherSection = $('#section-weather');
     loadingSection = $('#section-loading');
+    errorSection = $('#section-error');
+
     hideElement(weatherSection);
+    hideElement(errorSection);
     showElement(loadingSection);
 
     generateSearchHistoryButtons();
