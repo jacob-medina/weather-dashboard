@@ -79,6 +79,15 @@ input[type="submit"] {
     display: inline-block;
 }
 
+#section-city-choice {
+    height: 100vh;
+}
+
+.city-link {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
 #section-loading {
     height: 100vh;
     display: flex;
