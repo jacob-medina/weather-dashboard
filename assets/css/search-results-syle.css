@@ -1,20 +1,25 @@
-:root {
-    --text-color: #0a181a;
-    --primary-color: rgb(48, 111, 199);
-    --secondary-color: #ffffff;
-    --accent-color: #1cc4d4;
-    --background-color: #ecf7f8;
-    --border-radius: 5px;
+#section-search-bar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 100;
+
+    backdrop-filter: saturate(150%) blur(8px) opacity(100%);
+    /* background-color: var(--accent-color); */
 }
 
-body {
-    background: linear-gradient(var(--primary-color), rgb(145, 195, 255));
-    background-repeat: no-repeat;
+#city {
+    width: min(250px, calc(100% - 3rem));
 }
 
 #search-history button {
     background-color: var(--secondary-color);
     margin: 10px;
+}
+
+main {
+    margin-top: calc(160px + 20px);
 }
 
 main section {
@@ -28,7 +33,7 @@ main section {
 }
 
 #current-weather-icon {
-    width: 200px;
+    width: min(50vw, 200px);
     /* height: 100px; */
 }
 
@@ -53,8 +58,33 @@ main section {
     margin-right: 5px;
 }
 
+@media screen and (min-width: 330px) {
+    .logo {
+        display: inline-block !important;
+    }
+
+    .logo-top-anchor {
+        margin-top: 0px !important;
+    }
+
+    .logo-top {
+        display: none !important;
+    }
+
+    main {
+        margin-top: calc(108px + 20px);
+    }
+}
+
+@media screen and (min-width: 576px) {
+    #section-search-bar .d-flex {
+        justify-content: start !important;
+    }
+}
+
 @media screen and (min-width: 992px) {
     #section-weather {
         width: 50%;
     }
 }
+

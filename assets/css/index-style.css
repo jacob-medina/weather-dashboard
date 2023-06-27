@@ -1,3 +1,56 @@
+body {
+    height: 100vh;
+    background-image: url("../images/cloud-background.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+h1 {
+    font-size: 550%;
+}
+
+hgroup p {
+    position: relative;
+    left: 10px;
+    font-size: 150%;
+    color: var(--yellow-color);
+}
+
+.logo {
+    height: 300px;
+    width: auto;
+}
+
 #section-search-bar {
     margin: auto auto;
+    background-color: transparent;
 }
+
+#form-search-bar {
+    width: min(400px, 80vw);
+}
+
+#city {
+    width: calc(100% - 3rem);
+}
+
+.citation-link {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    opacity: 30%;
+}
+
+footer {
+    width: 100%;
+    position: absolute;
+    bottom: 1rem;
+    opacity: 50%;
+}
+
+footer p,
+footer a {
+    color: var(--text-color);
+
+}
+

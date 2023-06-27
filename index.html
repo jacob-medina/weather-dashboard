@@ -28,13 +28,16 @@
 
 <body>
     <!-- Header -->
-    <header>
-        <hgroup class="text-center">
-            <h1>Weathi</h1>
-            <p class="subtitle">Weather better.</p>
+    <header class="row justify-content-center">
+        <hgroup class="col-5 d-flex flex-column justify-content-center align-items-center">
+            <div>
+                <h1>Weathi</h1>
+                <p class="subtitle">Weather better.</p>
+            </div>
+            
         </hgroup>
 
-        <img src="./assets/images/logo.png" alt="Weathi logo" class="d-block my-5" />
+        <img src="./assets/images/logo/logo-large.png" alt="Weathi logo" class="logo d-block col-6 my-5" />
     </header>
 
     <!-- Main content -->
@@ -43,16 +46,18 @@
         <!-- City search bar -->
         <section id="section-search-bar">
             <form id="form-search-bar" class="p-3">
-                <input id="city" name="city" type="text" placeholder="Search for a city" />
+                <input id="city" class="p-1" name="city" type="text" placeholder="Search for a city" />
                 <input id="btn-submit" type="submit" value=" " />
             </form>
         </section>
 
+        <a class="citation-link" href="https://www.freepik.com/free-vector/gorgeous-clouds-background-with-blue-sky-design_8562848.htm" target="_blank">Background image designed by starline on Freepik</a>
+
     </main>
 
     <!-- Footer -->
-    <footer class="text-center">
-        <p>Made by <a href="https://github.com/jacob-medina">Jacob Medina</a></p>
+    <footer class="text-center d-flex justify-content-center">
+        <p>Made by <a href="https://github.com/jacob-medina" target="_blank">Jacob Medina</a></p>
     </footer>
 
     <!-- jQuery Scripts -->
