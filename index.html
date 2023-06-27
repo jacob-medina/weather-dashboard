@@ -21,33 +21,37 @@
     <link rel="stylesheet" type="text/css" href="./assets/css/style.css" />
     <link rel="stylesheet" type="text/css" href="./assets/css/index-style.css" />
 
+    <!-- Document Icon -->
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+
 </head>
 
 <body>
     <!-- Header -->
     <header>
-        <hgroup>
+        <hgroup class="text-center">
             <h1>Weathi</h1>
             <p class="subtitle">Weather better.</p>
         </hgroup>
+
+        <img src="./assets/images/logo.png" alt="Weathi logo" class="d-block my-5" />
     </header>
 
     <!-- Main content -->
-    <main>
+    <main class="d-flex flex-column justify-content-center align-items-center">
 
         <!-- City search bar -->
         <section id="section-search-bar">
-            <form id="form-search-bar">
-                <h2>Search for a city.</h2>
-                <input id="city" name="city" type="text" placeholder="New York" />
-                <input id="btn-submit" type="submit">
+            <form id="form-search-bar" class="p-3">
+                <input id="city" name="city" type="text" placeholder="Search for a city" />
+                <input id="btn-submit" type="submit" value=" " />
             </form>
         </section>
 
     </main>
 
     <!-- Footer -->
-    <footer>
+    <footer class="text-center">
         <p>Made by <a href="https://github.com/jacob-medina">Jacob Medina</a></p>
     </footer>
 
