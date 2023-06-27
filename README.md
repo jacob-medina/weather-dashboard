@@ -1,9 +1,12 @@
-# Weathi
+# Weathi ![Weathi logo](./assets/images/logo/logo.png)
+
 
 
 ## Description
 
 [Click here to visit the live website.](https://jacob-medina.github.io/weathi/)
+
+![Weathi home page preview](./assets/images/previews/home-page-preview.png)
 
 A simple weather app.
 

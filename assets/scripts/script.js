@@ -502,7 +502,7 @@ function generateWeatherInfo(apiKey) {
     const location = getQueryParams();
     const city = location.city;
 
-    console.log(location);
+    // console.log(location);
     
     if (location.lat !== null && location.lon !== null) {
         fetchWeatherData(location.lat, location.lon, location.city, location.country, apiKey);
@@ -522,7 +522,7 @@ function generateWeatherInfo(apiKey) {
                 return;
             }
 
-            console.log(data);
+            // console.log(data);
 
             if (data.length === 1) {
                 data = data[0];
