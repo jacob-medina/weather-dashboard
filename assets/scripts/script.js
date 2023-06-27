@@ -294,13 +294,22 @@ function addToSearchHistory(search) {
     var searchHistory = getSearchHistory();
 
     // cancel action if search is already in search history
-    if (searchHistory.includes(search)) { return; }
+    const matchingCity = searchHistory.find(searchObject => searchObject.city === search);
+    console.log(searchHistory.find(searchObject => searchObject.city === search));
+    if (matchingCity === null) { return; }
 
     // keep a maximum length of search history
     while (searchHistory.length >= searchHistoryMax) {
         searchHistory.shift();
     }
-    searchHistory.push(search);
+    const queryParams = getQueryParams();
+    const searchObject = {
+        city: search,
+        country: queryParams.country,
+        lat: queryParams.lat,
+        lon: queryParams.lon
+    };
+    searchHistory.push(searchObject);
 
     localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
 }
@@ -311,7 +320,10 @@ function generateSearchHistoryButtons() {
 
     for (const search of getSearchHistory()) {
         var button = $('<button>');
-        button.text(search);
+        button.text(search.city);
+        button.data('country', search.country);
+        button.data('lat', search.lat);
+        button.data('lon', search.lon);
 
         searchHistorySection.append(button);
     }
@@ -510,7 +522,7 @@ function generateWeatherInfo(apiKey) {
     }
 
     // fetch geographic data from openweathermap
-    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=${limit}&appid=${apiKey}`)
+    fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=${limit}&appid=${apiKey}`)
         .then(function(response) {
             return response.json();
         })
@@ -541,7 +553,17 @@ function generateWeatherInfo(apiKey) {
 // searches results for whichever city was clicked on in the search history
 function handleSearchHistoryButtonClick(event) {
     const city = $(this).text();
-    getSearchResults(city);
+    const country = $(this).data('country');
+    const lat = $(this).data('lat');
+    const lon = $(this).data('lon');
+
+    if (lat !== null && lon !== null) {
+        addLocationParameter(city, country, lat, lon);
+    }
+
+    else {
+        getSearchResults(city);
+    }
 }
 
 
