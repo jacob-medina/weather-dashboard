@@ -48,3 +48,8 @@ The following resources were used to assist in the development of this project:
 - [Bootstrap](https://getbootstrap.com/)
 - [List of country names and codes](https://gist.github.com/keeguon/2310008#file-countries-json)
   - > Created by [Félix Bellanger](https://gist.github.com/keeguon)
+
+
+## License
+
+This project is made under the [MIT License](./LICENSE).
