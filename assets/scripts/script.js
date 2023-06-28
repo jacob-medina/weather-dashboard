@@ -295,8 +295,7 @@ function addToSearchHistory(search) {
 
     // cancel action if search is already in search history
     const matchingCity = searchHistory.find(searchObject => searchObject.city === search);
-    console.log(searchHistory.find(searchObject => searchObject.city === search));
-    if (matchingCity === null) { return; }
+    if (matchingCity) { return; }
 
     // keep a maximum length of search history
     while (searchHistory.length >= searchHistoryMax) {
@@ -349,7 +348,7 @@ function handleSearchFormSubmit(event) {
     // search won't occur if no city is inputted
     if (city === '') { return; }
 
-    addToSearchHistory(city);
+    // addToSearchHistory(city);
     getSearchResults(city);
 }
 
@@ -364,9 +363,6 @@ function setWeatherIcon(imageElement, weatherData) {
 
 
 function displayWeatherCurrentData(city, country, weatherData) {
-    // console.log('------------ CURRENT WEATHER ------------');
-    // console.log(weatherData);
-
     // display date and location data
     $('#current-date').text(dayjs().format('dddd, MMMM D'));
     $('#weather-city').text(city);
@@ -428,7 +424,6 @@ function generateWeatherForecastCard(weatherData) {
 
 
 function displayWeatherForecastData(allWeatherData) {
-    // console.log('------------ FORECAST WEATHER ------------');
     // get weatherData for only 12 PM
     for (weatherData of allWeatherData) {
         const forecastTime = weatherData.dt_txt.slice(11);
@@ -457,7 +452,6 @@ function fetchWeatherData(lat, lon, city, country, apiKey) {
         })
         .then(function(data) {
             // data gives 40 timestamps, 8 per day
-            // console.log(data);
             displayWeatherForecastData(data.list);
         });
 }
@@ -482,6 +476,7 @@ function addLocationParameter(city, country, lat, lon) {
 
 function generateCitySearchResults(searchedCity, cities) {
     hideElement(loadingSection);
+    showElement(cityChoiceSection);
 
     $('#possible-city-name').text(searchedCity);
 
@@ -513,10 +508,11 @@ function generateWeatherInfo(apiKey) {
     const limit = 5;
     const location = getQueryParams();
     const city = location.city;
-
-    // console.log(location);
     
     if (location.lat !== null && location.lon !== null) {
+        hideElement(cityChoiceSection);
+        showElement(loadingSection);
+        addToSearchHistory(city);
         fetchWeatherData(location.lat, location.lon, location.city, location.country, apiKey);
         return;
     }
@@ -533,8 +529,6 @@ function generateWeatherInfo(apiKey) {
                 displayNoFindCity(city);
                 return;
             }
-
-            // console.log(data);
 
             if (data.length === 1) {
                 data = data[0];
@@ -576,10 +570,12 @@ function searchResultsInit() {
 
     hideElement(weatherSection);
     hideElement(errorSection);
+    hideElement(cityChoiceSection);
     showElement(loadingSection);
 
-    generateSearchHistoryButtons();
     generateWeatherInfo('a74f6906ebee4cca4079ea0cc2015a94');
+    generateSearchHistoryButtons();
+    
 
     $('#search-history').on('click', 'button', handleSearchHistoryButtonClick);
 }
